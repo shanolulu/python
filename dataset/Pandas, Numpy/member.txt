@@ -1,0 +1,17 @@
+name,class,gender,age
+John,Mathematics,male,18
+Liam,E-Business,female,19
+Noah,Mathematics,female,20
+Logan,Computer,male,20
+Lucas,E-Business,male,21
+Mason,E-Business,male,21
+Oliver,E-Business,female,21
+Ethan,Computer,male,22
+Elijah,Computer,female,22
+Aiden,Accounting,female,22
+James,Computer,male,22
+Sophia,Finance,male,23
+Emma,Accounting,male,23
+Emily,Finance,male,23
+Grace,Computer,male,23
+Hailey,Finance,male,23

@@ -1,0 +1,9 @@
+name,role,salary
+John,Director,9000
+Liam,Manager,
+Noah,Staff,3300
+Logan,Manager,5500
+Lucas,Director,8500
+Mason,Manager,6200
+Oliver,Staff,
+Ethan,Staff,3800
