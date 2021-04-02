@@ -14,6 +14,7 @@ scrapy 를 이용한 웹 크롤링 실행
     > scrapy genspider [domain주소("https://"부분은빼고)]
 5. 생성된 mybots.py에 스크랩 할 함수를 생성해준다.
     # 예시
+
     def parse(self, response):
         titles = response.xpath('//*[@id="old_content"]/table/tbody/tr/td[2]/a[1]/text()').extract()
         ratings = response.xpath('//*[@id="old_content"]/table/tbody/tr/td[2]/div/em/text()').extract()
@@ -31,6 +32,7 @@ scrapy 를 이용한 웹 크롤링 실행
         return items
 6. settings.py를 설정하여 스크랩 데이터의 타입과 위치 파일 명 등을 지정가능
     # 예시
+    
     FEED_FORMAT = 'csv'
     FEED_URI = 'my_news.csv'
 7. 프로젝트 실행
