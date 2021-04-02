@@ -14,6 +14,7 @@ scrapy 를 이용한 웹 크롤링 실행
     > scrapy genspider [domain주소("https://"부분은빼고)]
 5. 생성된 mybots.py에 스크랩 할 함수를 생성해준다.
     > 예시
+    
         def parse(self, response):
             titles = response.xpath('//*[@id="old_content"]/table/tbody/tr/td[2]/a[1]/text()').extract()
             ratings = response.xpath('//*[@id="old_content"]/table/tbody/tr/td[2]/div/em/text()').extract()
