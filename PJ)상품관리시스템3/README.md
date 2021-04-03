@@ -1,88 +1,102 @@
 # pymysql
 > 파이썬을 활용하여 mysql의 db연결
 
-Python & MySQL 
-    pip install PyMySQL #package install
-    import pymysql #package import
-    DB연결
-        db = pymysql.connect(
-            user='사용자명', 
-            passwd='설정한 비밀번호', 
-            host='mysql서버',
-	    port=port번호, 
-            db='데이터베이스명', 
-            charset='utf8'
-        )
-    Cursor설정:연결한 데이터베이스와 통신하기 위한 커서 설정
-        cursor = 연결변수_db.cursor(pymysql.cursors.DictCursor)
-            DictCursor : Dictionary형태로 결과를 리턴하는 Cursor
-            일반적으로 튜플로 리턴
-    Query 실행 및 결과처리
-        SELECT
-            예) sql = "SELECT * FROM `테이블명`;"
+# Python & MySQL 
+        pip install PyMySQL #package install
+        
+        import pymysql #package import
+
+    * DB연결
+
+            db = pymysql.connect(
+                user='사용자명', 
+                passwd='설정한 비밀번호', 
+                host='mysql서버',
+            port=port번호, 
+                db='데이터베이스명', 
+                charset='utf8'
+            )
+
+    * Cursor설정: 연결한 데이터베이스와 통신하기 위한 커서 설정
+
+            cursor = 연결변수_db.cursor(pymysql.cursors.DictCursor)
+                DictCursor : Dictionary형태로 결과를 리턴하는 Cursor
+                일반적으로 튜플로 리턴
+
+    * Query 실행 및 결과처리
+
+            SELECT
+                예) sql = "SELECT * FROM `테이블명`;"
+                    cursor.execute(sql)
+                    result = cursor.fetchall()
+                fetchall() : 모든데이터 리턴
+                fetchone() : 한행리턴
+                fetchmany(n) : n개행 리턴
+                * 데이터 편리하게 처리하기 위한 pandas프레임 사용가능 :
+                import pandas as pd
+                    result = pd.DataFrame(result)
+                    result
+                    fechone():result = pd.DataFrame(result, index=[0])
+            INSERT
+                예)sql="INSERT INTO '테이블명' VALUES(삽입할 데이터)
                 cursor.execute(sql)
-                result = cursor.fetchall()
-            fetchall() : 모든데이터 리턴
-            fetchone() : 한행리턴
-            fetchmany(n) : n개행 리턴
-            * 데이터 편리하게 처리하기 위한 pandas프레임 사용가능 :
-            import pandas as pd
-                result = pd.DataFrame(result)
-                result
-                fechone():result = pd.DataFrame(result, index=[0])
-        INSERT
-            예)sql="INSERT INTO '테이블명' VALUES(삽입할 데이터)
-            cursor.execute(sql)
-            db.commit()
-        UPDATE
-            예)sql="UPDATE '테이블명' 
-                    SET 컬럼=변경데이터
-                    WHERE 수정할데이터 조건
-            cursor.execute(sql)
-            db.commit()
-        DELETE
-            예)sql="DELETE FROM '테이블명' WHERE 삭제할데이터 조건
-            cursor.execute(sql)
-            db.commit()
-    DB종료
-    동적 데이터 처리(Placehoder)
-        sql - parameter: %s
-        excute(sql,datalist 또는 datatuple) #하나의 데이터
-        예) data = ('hong', 1)
-            # SELECT 
-            sql = "SELECT * FROM `customer` WHERE name = %s AND id = %s;"
-            cursor.execute(sql, data)
+                db.commit()
+            UPDATE
+                예)sql="UPDATE '테이블명' 
+                        SET 컬럼=변경데이터
+                        WHERE 수정할데이터 조건
+                cursor.execute(sql)
+                db.commit()
+            DELETE
+                예)sql="DELETE FROM '테이블명' WHERE 삭제할데이터 조건
+                cursor.execute(sql)
+                db.commit()
 
-            # DELETE
-            sql = "DELETE FROM `customer` WHERE `name` = %s AND `id` = %s;"
-            cursor.execute(sql, data)
-            db.commit()
-        executemany(sql, multiple-data)#댜량의데이터
-            data = [['hong', 1], ['lee', 2], ['kim', 3]]
-            # INSERT 
-            sql = "INSERT INTO `customer`(name, id) VALUES (%s, %s);"
-            cursor.executemany(sql, data)
-            db.commit()
+    * DB종료
 
-            # UPDATE 
-            sql = "UPDATE `customer` SET `name` = %s WHERE `id` = %s;"
-            cursor.executemany(sql, data)
-            db.commit()
+            동적 데이터 처리(Placehoder)
+            sql - parameter: %s
+            excute(sql,datalist 또는 datatuple) #하나의 데이터
+            예) data = ('hong', 1)
+                # SELECT 
+                sql = "SELECT * FROM `customer` WHERE name = %s AND id = %s;"
+                cursor.execute(sql, data)
+
+                # DELETE
+                sql = "DELETE FROM `customer` WHERE `name` = %s AND `id` = %s;"
+                cursor.execute(sql, data)
+                db.commit()
+            executemany(sql, multiple-data)#댜량의데이터
+                data = [['hong', 1], ['lee', 2], ['kim', 3]]
+                # INSERT 
+                sql = "INSERT INTO `customer`(name, id) VALUES (%s, %s);"
+                cursor.executemany(sql, data)
+                db.commit()
+
+                # UPDATE 
+                sql = "UPDATE `customer` SET `name` = %s WHERE `id` = %s;"
+                cursor.executemany(sql, data)
+                db.commit()
+
+
     참고
-        https://pymysql.readthedocs.io/en/latest/index.html
-        http://pythonstudy.xyz/python/article/201-Python-DB-API
 
-MYSQL인코딩 확인
-    desc information_schema.SCHEMATA
-    SELECT default_character_set_name, DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA  WHERE schema_name = "aidb";
+            https://pymysql.readthedocs.io/en/latest/index.html
+            http://pythonstudy.xyz/python/article/201-Python-DB-API
 
-    SELECT CCSA.character_set_name FROM information_schema.`TABLES` T,
-       information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` CCSA
-        WHERE CCSA.collation_name = T.table_collation
-        AND T.table_schema = "aidb"
-        AND T.table_name = "member";    
+# MYSQL인코딩 확인
 
-MYSQL 인코딩 변경
+        desc information_schema.SCHEMATA
+        SELECT default_character_set_name, DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA  WHERE schema_name = "aidb";
+
+        SELECT CCSA.character_set_name FROM information_schema.`TABLES` T,
+        information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` CCSA
+            WHERE CCSA.collation_name = T.table_collation
+            AND T.table_schema = "aidb"
+            AND T.table_name = "member";    
+
+# MYSQL 인코딩 변경
+
     [Windows]
     my.ini
         [client]
