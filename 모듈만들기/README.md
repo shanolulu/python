@@ -21,6 +21,7 @@
 
 3. 불러온 모듈을 사용한다.
     > calculator_module.[불러올함수명]
+    
     > calculator_module.[변수명] # 변수도 불러올 수 있다.
 
     예시
@@ -33,5 +34,6 @@
 + from, import 로도 사용 가능하다.
 
     예시
+        
         from calculator_module import add
         add(20, 10)
