@@ -78,7 +78,6 @@
 
 
     참고
-
         https://pymysql.readthedocs.io/en/latest/index.html
         http://pythonstudy.xyz/python/article/201-Python-DB-API
 
